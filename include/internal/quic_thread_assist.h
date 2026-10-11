@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The OpenSSL Project Authors. All Rights Reserved.
+ * Copyright 2023-2025 The OpenSSL Project Authors. All Rights Reserved.
  *
  * Licensed under the Apache License 2.0 (the "License").  You may not use
  * this file except in compliance with the License.  You can obtain a copy
@@ -8,19 +8,17 @@
  */
 
 #ifndef OSSL_QUIC_THREAD_ASSIST_H
-#define OSSL_QUIC_THREAD_ASSIST_H
+# define OSSL_QUIC_THREAD_ASSIST_H
 
-#include <openssl/ssl.h>
+# include <openssl/ssl.h>
+# include "internal/thread.h"
+# include "internal/time.h"
 
-#include "internal/quic_channel.h"
-#include "internal/thread.h"
-#include "internal/time.h"
+# if defined(OPENSSL_NO_QUIC) || defined(OPENSSL_NO_THREAD_POOL)
+#  define OPENSSL_NO_QUIC_THREAD_ASSIST
+# endif
 
-#if defined(OPENSSL_NO_QUIC) || defined(OPENSSL_NO_THREAD_POOL)
-#define OPENSSL_NO_QUIC_THREAD_ASSIST
-#endif
-
-#ifndef OPENSSL_NO_QUIC_THREAD_ASSIST
+# ifndef OPENSSL_NO_QUIC_THREAD_ASSIST
 
 /*
  * QUIC Thread Assisted Functionality
@@ -58,7 +56,7 @@ typedef struct quic_thread_assist_st {
  * not affect the state of the mutex.
  */
 int ossl_quic_thread_assist_init_start(QUIC_THREAD_ASSIST *qta,
-    QUIC_CHANNEL *ch);
+                                       QUIC_CHANNEL *ch);
 
 /*
  * Request the thread assist helper to begin stopping the assist thread. This
@@ -95,6 +93,6 @@ int ossl_quic_thread_assist_cleanup(QUIC_THREAD_ASSIST *qta);
  */
 int ossl_quic_thread_assist_notify_deadline_changed(QUIC_THREAD_ASSIST *qta);
 
-#endif
+# endif
 
 #endif

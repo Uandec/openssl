@@ -1,8 +1,0 @@
-openssl_conf = openssl_init
-
-[openssl_init]
-random = random_section
-
-[random_section]
-seed = TEST-RAND
-seed_strict = yes

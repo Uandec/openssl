@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2026 The OpenSSL Project Authors. All Rights Reserved.
+ * Copyright 2019-2021 The OpenSSL Project Authors. All Rights Reserved.
  *
  * Licensed under the Apache License 2.0 (the "License").  You may not use
  * this file except in compliance with the License.  You can obtain a copy
@@ -8,12 +8,8 @@
  */
 
 #ifndef OSSL_CRYPTO_ESS_H
-#define OSSL_CRYPTO_ESS_H
-#pragma once
-
-#include <openssl/asn1.h>
-#include <openssl/ess.h>
-#include <openssl/safestack.h>
+# define OSSL_CRYPTO_ESS_H
+# pragma once
 
 /*-
  * IssuerSerial ::= SEQUENCE {
@@ -35,7 +31,7 @@ struct ESS_issuer_serial {
  */
 
 struct ESS_cert_id {
-    ASN1_OCTET_STRING *hash; /* Always SHA-1 digest. */
+    ASN1_OCTET_STRING *hash;    /* Always SHA-1 digest. */
     ESS_ISSUER_SERIAL *issuer_serial;
 };
 
@@ -60,7 +56,7 @@ struct ESS_signing_cert {
  */
 
 struct ESS_cert_id_v2_st {
-    X509_ALGOR *hash_alg; /* Default: SHA-256 */
+    X509_ALGOR *hash_alg;       /* Default: SHA-256 */
     ASN1_OCTET_STRING *hash;
     ESS_ISSUER_SERIAL *issuer_serial;
 };
